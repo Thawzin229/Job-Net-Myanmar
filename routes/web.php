@@ -1,0 +1,211 @@
+<?php
+
+use App\Http\Controllers\AddJobsController;
+use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\AdminUserListController;
+use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\MainJobController;
+use App\Http\Controllers\ManageJobController;
+use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserHomeController;
+use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\CheckLoginMiddleware;
+use App\Models\User;
+use Inertia\Inertia;
+use App\Models\Location;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GithubController;
+use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\CampanyController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\JobFuntionalityController;
+
+
+#Oatuh2 
+Route::group(['prefix' => 'auth','middleware'=>'login_check'], function () {
+    Route::get('google/redirect', [GoogleController::class, "redirect"]);
+    Route::get('google/call-back', [GoogleController::class, "login"]);
+
+    Route::get('github/redirect', [GithubController::class, "redirect"]);
+    Route::get('github/call-back', [GithubController::class, "login"]);
+});
+
+
+#authentication (admin)
+Route::group(['prefix' => 'admin/auth','middleware' => 'login_check'], function () {
+    Route::controller(AdminAuthController::class)->group(function () {
+        Route::get('/sign-up', 'signuppage');
+        Route::post('/sign-up', 'signup');
+
+        #password login
+        Route::get('/sign-in', 'signinpage');
+        Route::post('/sign-in', 'signin');
+
+        #otp login
+        Route::get('/sign-in/otp', 'otppage');
+        Route::post('/sign-in/otp', 'sendEmail');
+
+        Route::get('/sign-in/otp-login', 'otpLoginPage');
+        Route::post('/sign-in/otp-login', 'optlogin');
+
+
+        Route::post('logout', 'logout')->withoutMiddleware(CheckLoginMiddleware::class);
+    });
+});
+
+#authentication (user)
+Route::group(['prefix' => 'user/auth','middleware' => 'guest'], function () {
+    Route::controller(UserAuthController::class)->group(function () {
+        Route::get('/sign-up', 'signuppage');
+        Route::post('/sign-up', 'signup');
+
+        #password login
+        Route::get('/sign-in', 'signinpage')->name('login');
+        Route::post('/sign-in', 'signin');
+
+        #otp login
+        Route::get('/sign-in/otp', 'otppage');
+        Route::post('/sign-in/otp', 'sendEmail');
+
+        Route::get('/sign-in/otp-login', 'otpLoginPage');
+        Route::post('/sign-in/otp-login', 'optlogin');
+
+        #forget password 
+        Route::get('forget-password', 'fgPage');
+        Route::post('forget-password', 'sendtoken');
+
+        Route::get('forget-password/change', 'changepasspage');
+        Route::post('forget-password/check', 'checkToken');
+
+        Route::get('forget-password/update', 'updatepasspage');
+        Route::post('forget-password/update', 'updatePass');
+
+        Route::post('logout', 'logout')->withoutMiddleware('guest');
+    });
+});
+
+#admin routes
+Route::group(['prefix' => 'admin','middleware' => 'admin_auth'], function () {
+    Route::controller(AdminController::class)->group(function () {
+        Route::get('/dashboard', 'dashboard');
+    });
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/categories', 'index');
+        Route::get('/categories/{id}', 'edit');
+        Route::post('/categories', 'create'); 
+        Route::patch('/categories', 'update');
+        Route::delete('/categories/{id}', 'delete');
+    });
+    Route::controller(JobFuntionalityController::class)->group(function () {
+        Route::get('/job-functions', 'index');
+        Route::post('/job-functions', 'create');
+        Route::get('/job-functions/{id}', 'edit');
+        Route::patch('/job-functions/', 'update');
+        Route::delete('/job-functions/{id}', 'delete');
+    });
+
+    Route::controller(LocationController::class)->group(function () {
+        Route::get('/locations', 'index');
+        Route::post('/locations', 'create');
+        Route::get('/locations/{id}', 'edit');
+        Route::patch('/locations/', 'update');
+        Route::delete('/locations/{id}', 'delete');
+    });
+
+    Route::controller(CampanyController::class)->group(function () {
+        Route::get('/campanies', 'index');
+        Route::post('/campanies', 'create');
+        Route::get('/campanies/{id}', 'detail');
+        Route::get('/campanies/edit/{id}', 'edit');
+        Route::patch('/campanies/', 'update');
+        Route::delete('/campanies/{id}', 'delete');
+    });
+
+
+    Route::controller(EmployerController::class)->group(function () {
+        Route::get('/employers', 'index');
+        Route::post('/employers', 'create');
+        Route::get('/employers/edit/{id}', 'edit');
+        Route::patch('/employers/', 'update');
+        Route::delete('/employers/{id}', 'delete');
+    });
+    Route::controller(AdminProfileController::class)->group(function () {
+        Route::get('/profiles', 'index');
+        Route::post('/profiles', 'update');
+        Route::patch('/profiles/change-password', 'updatePass');
+    });
+
+    Route::controller(AdminUserListController::class)->group(function () {
+        Route::get('/userlists', 'index');
+        Route::get('/userlists/{id}', 'show');
+        Route::post('/userlists', 'update');
+        Route::delete('/userlists/{id}', 'delete');
+    });
+});
+
+#user routes
+Route::group(['prefix' => 'user'], function () {
+
+    Route::controller(UserHomeController::class)->group(function(){
+        Route::get('/home','index');
+    });
+
+    Route::controller(AddJobsController::class)->group(function(){
+        Route::get('/add-job','index')->middleware('auth');
+        Route::post('/add-job','create')->middleware('auth');
+    });
+
+    Route::controller(ManageJobController::class)->group(function(){
+        Route::get('/manage-job','index')->middleware('auth');
+        Route::delete('/manage-job/{id}','delete')->middleware('auth');
+        Route::get('/manage-job/{id}','show')->middleware('auth');
+        Route::post('/manage-job','update')->middleware('auth');
+    });
+
+    Route::controller(MainJobController::class)->group(function(){
+        Route::get('/jobs','index');
+        Route::get('/jobs/{id}','show');
+    });
+
+    Route::controller(ApplicationController::class)->group(function(){
+        Route::post('/applications','create');
+        Route::get('/applications/{id}','index');
+        Route::patch('/applications/status/{id}','changeStatus');
+        Route::post('/applications/note/','Note');
+        Route::delete('/applications/{id}','Delete');
+    }); 
+
+
+    Route::controller(BookmarkController::class)->group(function(){
+        Route::post('book-marks','create');
+        Route::get('book-marks','index');
+    }); 
+
+    Route::controller(CategoryController::class)->group(function(){
+        Route::get('browse-categories','browseCatePage');
+    }); 
+    Route::controller(ResumeController::class)->group(function(){
+        Route::get('resumes/create','createPage');
+        Route::get('resumes','index');
+        Route::post('resumes/','create');
+        Route::get('resumes/{id}','show');
+        Route::get('resumes/edit/{id}','edit');
+        Route::post('resumes/update','update');
+        Route::delete('resumes/{id}','delete');
+    }); 
+    Route::controller(ReviewController::class)->group(function(){
+        Route::get('reviews','index');
+        Route::post('reviews','create');
+    }); 
+
+});
+
+
