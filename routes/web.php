@@ -10,6 +10,7 @@ use App\Http\Controllers\MainJobController;
 use App\Http\Controllers\ManageJobController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserDashBoardController;
 use App\Http\Controllers\UserHomeController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\CheckLoginMiddleware;
@@ -201,9 +202,9 @@ Route::group(['prefix' => 'user'], function () {
         Route::post('resumes/update','update');
         Route::delete('resumes/{id}','delete');
     }); 
-    Route::controller(ReviewController::class)->group(function(){
-        Route::get('reviews','index');
-        Route::post('reviews','create');
+    Route::controller(UserDashBoardController::class)->group(function(){
+        Route::get('dashboards','index');
+        Route::get('dashboards/edit','edit');
     }); 
 
 });

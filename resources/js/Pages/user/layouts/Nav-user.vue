@@ -54,6 +54,13 @@
 				</li>
 
 				<li><a href="blog.html">Blog</a></li>
+
+				<li><a href="#"><span class="material-symbols-outlined">person</span></a>
+					<ul>
+						<li><Link href="/user/dashboards">Profile</Link></li>
+					</ul>
+				</li>
+
 			</ul>
 
 
@@ -62,7 +69,7 @@
 				<li><Link href="/user/auth/sign-in"><i class="fa fa-lock"></i> Log In</Link></li>
 			</ul>
 			<ul class="float-right" v-if="authed_user.length !==0">
-				<li><Link href="/user/auth/logout" method="post"><i class="fa fa-user"></i>Logout</Link></li>
+				<li><Link href="/user/auth/logout" method="post"><i class="fa fa-lock"></i>Logout</Link></li>
 			</ul>
 
 		</nav>

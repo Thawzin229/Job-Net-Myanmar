@@ -121,7 +121,7 @@ class UserAuthController extends Controller
         Auth::logout();
         session()->regenerate();
         Cookie::queue(Cookie::forget('job_net_token'));
-        return back();
+        return redirect('user/home');
     }
 
     #forget passwrod 
