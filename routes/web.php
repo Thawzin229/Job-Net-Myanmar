@@ -177,11 +177,11 @@ Route::group(['prefix' => 'user'], function () {
     });
 
     Route::controller(ApplicationController::class)->group(function(){
-        Route::post('/applications','create');
-        Route::get('/applications/{id}','index');
-        Route::patch('/applications/status/{id}','changeStatus');
-        Route::post('/applications/note/','Note');
-        Route::delete('/applications/{id}','Delete');
+        Route::post('/applications','create')->middleware('auth');
+        Route::get('/applications/{id}','index')->middleware('auth');
+        Route::patch('/applications/status/{id}','changeStatus')->middleware('auth');
+        Route::post('/applications/note/','Note')->middleware('auth');
+        Route::delete('/applications/{id}','Delete')->middleware('auth');
     }); 
 
 
@@ -194,17 +194,25 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('browse-categories','browseCatePage');
     }); 
     Route::controller(ResumeController::class)->group(function(){
-        Route::get('resumes/create','createPage');
-        Route::get('resumes','index');
-        Route::post('resumes/','create');
-        Route::get('resumes/{id}','show');
-        Route::get('resumes/edit/{id}','edit');
-        Route::post('resumes/update','update');
-        Route::delete('resumes/{id}','delete');
-    }); 
+        Route::get('resumes/create','createPage')->middleware('auth');
+        Route::get('resumes','index')->middleware('auth');
+        Route::post('resumes/','create')->middleware('auth');
+        Route::get('resumes/{id}','show')->middleware('auth');
+        Route::get('resumes/edit/{id}','edit')->middleware('auth');
+        Route::post('resumes/update','update')->middleware('auth');
+        Route::delete('resumes/{id}','delete')->middleware('auth');
+    });
+
     Route::controller(UserDashBoardController::class)->group(function(){
         Route::get('dashboards','index');
         Route::get('dashboards/edit','edit');
+        Route::post('dashboards','update');
+        Route::get('dashboards/password','passwordPage');
+        Route::patch('dashboards/password','updatePass');
+    }); 
+    Route::controller(ReviewController::class)->group(function(){
+        Route::get('reviews','index');
+        Route::post('reviews','create');
     }); 
 
 });

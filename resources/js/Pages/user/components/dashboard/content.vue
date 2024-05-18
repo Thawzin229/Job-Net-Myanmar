@@ -7,19 +7,21 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img :src="user_profile.profile.avatar" alt="Admin" class="rounded-circle" width="150">
+                    <img v-if="user_profile.profile.avatar" :src="user_profile.profile.avatar" alt="Admin" class="rounded-circle" width="150">
+                    <img style="border-radius: 50%;width: 100px;height: 100px;" v-if="user_profile.profile.image" :src="'http://127.0.0.1:8000/storage/user_profile_images/'+user_profile.profile.image" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
                       <h4>{{ user_profile.profile.name }}</h4>
                       <p class="text-dark mb-1">{{ user_profile.profile.job }}</p>
                       <p class="text-muted font-size-sm">{{ user_profile.profile.address }}</p>
-                      <button class="btn btn-primary mx-2">Hire</button>
-                      <button class="btn btn-outline-primary">Message</button>
+                      <Link href="/user/dashboards/password" v-if="user_profile.google_id === null &&user_profile.github_id === null ">
+                        <button class="btn btn-outline-primary">Change Password</button>
+                      </Link>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card mt-3">
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush" v-if="user_profile.resume.length !== 0">
                   <li v-for="(link,index) in user_profile.resume[0].socials" :key="index" class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 v-if="link.name === 'website'" class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Website</h6>
                     <h6 v-if="link.name === 'github'" class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github mr-2 icon-inline"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>Github</h6>
@@ -136,7 +138,7 @@
 
 <script>
 export default {
-props:{user_profile:Object}
+props:{user_profile:Object,authed_user:Array}
 }
 </script>
 

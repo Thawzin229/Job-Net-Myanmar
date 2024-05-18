@@ -64,9 +64,9 @@ class ImageUploading
 
 class Validation
 {
-  public static function profileValidation($request)
+  public static function profileValidation($request,$user=null)
   {
-    $data = $request->validate([
+    return $user === null ? $request->validate([
       'name' => 'required|string|max:50',
       'hobby' => 'required|string|max:50',
       // 'image' => 'sometimes|image|mimes:png,jpg|size:2000',
@@ -78,9 +78,19 @@ class Validation
       'city' => 'required|string|max:300',
       'state' => 'required|string|max:300',
       'address_number' => 'required|numeric|',
+    ]) :
+    $request->validate([
+      'name' => 'required|string|max:50',
+      'hobby' => 'required|string|max:50',
+      // 'image' => 'sometimes|image|mimes:png,jpg|size:2000',
+      'gender' => 'required|string|max:50',
+      'birthday' => 'required|string|max:50',
+      'job' => 'required|string|max:50',
+      'phone' => 'required|string|max:50',
+      'address' => 'required|string|max:300',
+      'city' => 'required|string|max:300',
+      'state' => 'required|string|max:300',
     ]);
-
-    return $data;
   }
 
   public static function jobValidation($request, $id = null)
