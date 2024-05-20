@@ -24,11 +24,9 @@
 
 				<li><a href="#">Pages</a>
 					<ul>
-						<li><a href="job-page.html">Job Page</a></li>
-						<li><a href="job-page-alt.html">Job Page Alternative</a></li>
-						<li><a href="resume-page.html">Resume Page</a></li>
-						<li><a href="shortcodes.html">Shortcodes</a></li>
-						<li><a href="pricing-tables.html">Pricing Tables</a></li>
+						<li><Link href="/user/jobs">Job Page</Link></li>
+						<li><Link href="/user/resumes">Resume Page</Link></li>
+						<li><a href="/user/faqs">FAQs</a></li>
 						<li><a href="contact.html">Contact</a></li>
 					</ul>
 				</li>
@@ -49,7 +47,7 @@
 					<ul>
 						<li><Link href="/user/add-job">Add Job</Link></li>
 						<li><Link href="/user/manage-job">Manage Jobs</Link></li>
-						<li><a href="browse-resumes.html">Browse Resumes</a></li>
+						<li><Link href="/user/browse-resumes">Browse Resumes</Link></li>
 					</ul>
 				</li>
 

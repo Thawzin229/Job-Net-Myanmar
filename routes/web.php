@@ -5,12 +5,15 @@ use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\AdminUserListController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\BrowseResumeController;
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\FAQController;
 use App\Http\Controllers\MainJobController;
 use App\Http\Controllers\ManageJobController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserDashBoardController;
+use App\Http\Controllers\UserFAQController;
 use App\Http\Controllers\UserHomeController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\CheckLoginMiddleware;
@@ -150,6 +153,13 @@ Route::group(['prefix' => 'admin','middleware' => 'admin_auth'], function () {
         Route::post('/userlists', 'update');
         Route::delete('/userlists/{id}', 'delete');
     });
+    Route::controller(FAQController::class)->group(function () {
+        Route::get('/faqs', 'index');
+        Route::post('/faqs', 'create');
+        Route::get('/faqs/{id}', 'show');
+        Route::patch('/faqs', 'update');
+        Route::delete('/faqs/{id}', 'delete');
+    });
 });
 
 #user routes
@@ -214,6 +224,14 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('reviews','index');
         Route::post('reviews','create');
     }); 
+
+    Route::controller(BrowseResumeController::class)->group(function(){
+        Route::get('browse-resumes','index');
+    }); 
+
+    Route::controller(UserFAQController::class)->group(function () {
+        Route::get('/faqs', 'index');
+    });
 
 });
 

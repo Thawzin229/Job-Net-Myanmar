@@ -438,9 +438,9 @@
                                         <tbody>
                                             <tr v-for="(cam,index) in campanies" :key="index">
                                                 <th>
-                                                    <Link :href="'/admin/campanies/'+cam.id" class="avatar">
+                                                    <Link :href="'/admin/campanies/'+cam.id">
                                                     <img
-                                                            class="rounded"
+                                                            class="rounded w-25"
                                                             alt="Image placeholder"
                                                             :src="'http://localhost:8000/storage/campany_images/'+cam.image"
                                                         />

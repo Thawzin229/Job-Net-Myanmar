@@ -63,7 +63,7 @@
 
 		<br>
 
-		<a href="#" class="button">Add Resume</a>
+		<Link href="/user/resumes/create" class="button">Add Resume</Link>
 
 	</div>
 
