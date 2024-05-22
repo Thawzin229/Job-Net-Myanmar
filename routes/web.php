@@ -4,6 +4,7 @@ use App\Http\Controllers\AddJobsController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\AdminUserListController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\BrowseResumeController;
 use App\Http\Controllers\EmployerController;
@@ -232,6 +233,14 @@ Route::group(['prefix' => 'user'], function () {
     Route::controller(UserFAQController::class)->group(function () {
         Route::get('/faqs', 'index');
     });
+    Route::controller(BlogController::class)->group(function () {
+        Route::get('/blogs', 'index');
+        Route::get('/blogs/createpage', 'createpage')->middleware('auth');
+        Route::get('/blogs/{id}', 'show');
+        Route::post('/blogs', 'create');
+    });
+
+
 
 });
 

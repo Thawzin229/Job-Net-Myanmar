@@ -23,7 +23,7 @@ class ImageUploading
       $request->file('image')->storeAs($folder, $file_name);
       return $file_name;
     } else {
-      $file_name = $model::find($id)->image;
+      $file_name = $model::find($id)->image??null;
       return $file_name;
     }
   }
