@@ -7,52 +7,23 @@
 	</div>
 
 <div class="row">
-	<div class="col-lg-4 col-md-6 col-sm-12">
+	<div v-for="(post,index) in recents" :key="index" class="col-lg-4 col-md-6 col-sm-12">
 
 		<!-- Post #1 -->
 		<div class="recent-post">
-			<div class="recent-post-img"><a href="blog-single-post.html"><img src="" alt=""></a><div class="hover-icon"></div></div>
-			<a href="blog-single-post.html"><h4>Hey Job Seeker, It’s Time To Get Up And Get Hired</h4></a>
+			<div class="recent-post-img"><a href="blog-single-post.html">
+				<img style="width: 100%;height: 350px;"  v-if="post.image"  :src="'http://127.0.0.1:8000/storage/blog_images/'+post.image" alt="">
+				<img  v-if="!post.image" style="width:100%;height: 350px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANUAAACUCAMAAAAzmpx4AAAASFBMVEXf39/i4uLb29vl5eXIyMhxcXHo6Oipqalubm7S0tK1tbV+fn54eHiGhobV1dWWlpbCwsKcnJyMjIxpaWmvr6+ioqJiYmJbW1uzXVlrAAAC9klEQVR4nO3a25KjIBQFUK4qVxGx5///dABNYmaqp5OHKeuk9noC88IuhBxIGAMAAAAAAAAAAAAAAAAAAAAAAACA/4Gn8QVWXj3O98iyTj9a5+Hqcb5OVLxo/yNNKNUwu8a71PN9ywRSqbL2us6UU5zxs/rZqcMjtVRuXoJuqdKJEkw8epFeqiyG0lKJVd9NtW++br01SbqpJq/Xna5vpDS/jt76RTqVXtRum0J7I9WNIPwGTnqUfW8YbE9Ferd4StUfytJTmTvqc9Uf7qmidzfk1tX8Xaq6W9yLJfsxqXhctsOiPicVk3ec2rp6TrUXg3xPdSoDKafyYem2rGsqMS+HmfRu4W/1ktattnhUTJR3i8dO7lzbLfSt4wnP1fNJhLOn/oekYqTPV6c30J5FLsq9Y+imiucrGd92i4+oLb7WB11PjY/zFeFUpxq9lemMcs0+6yCGsX0/cXlW94hTR9K6Y5KbdkVl7az6p9Hrjc7dbd0j9htO929eT5FfPdjXyaRfuI6eVp0IhaqzJZL9WRKkQlXyFVcPEgAAAOi4XVTU1vnR301KxHEyZCya/Uk9QSq11+inJinchpxDmOtpuCyiP4mzCyHY1jSLC643aeHFJaNS9oyPuaXiItQnpqyF8+hCbW4ruVi8hLp2pNJJ7qmGcY1tMY3ODNmbtqxUvHqU7zpSGa1uc+X6FQWP2prV9tsKiuvKqbpbLJnvqXj0+9/LRCi2nevbtQy5WNzqnLP3RrI9lfFpT5XHMrX/2ZVi1dWjfFedq7pbqCWIP+cq17kSvP170G1Xj/Jdx7qKugz7umJu6+tKeKvWNm2czcvFg3zbkUr4saWqO96wTa2gkMWrweX+O48nOFd9t9imugeG1orCZRVjWkfGld5MrN/E9FJZXwuJkG2tLXpr5Cb74FypRZS0tbJwoyWXisV25WxarddbytQlpVIy/VuKR5VULRWvHuT7TjX7+XfGx4cUv4YBAAAAAAAAAAAAAAAAAAAAAADg4/wGhuM3+PTlSm8AAAAASUVORK5CYII=" alt="">
+	</a><div class="hover-icon"></div></div>
+			<a href="blog-single-post.html"><h4>{{ post.title }}</h4></a>
 			<div class="meta-tags">
-				<span>October 10, 2015</span>
-				<span><a href="#">0 Comments</a></span>
+				<span>{{ post.date }}</span>
+				<span><a href="#">{{ post.comments_count }} Comments</a></span>
 			</div>
-			<p>The world of job seeking can be all consuming. From secretly stalking the open reqs page of your dream company to sending endless applications.</p>
-			<a href="blog-single-post.html" class="button">Read More</a>
+			<p>{{ post.body }}</p>
+			<a :href="'/user/blogs/'+post.id" class="button">Read More</a>
 		</div>
 
-	</div>
-
-
-	<div class="col-lg-4 col-md-6 col-sm-12">
-
-		<!-- Post #2 -->
-		<div class="recent-post">
-			<div class="recent-post-img"><a href="blog-single-post.html"><img src="../../../../../public/user/images/recent-post-02.jpg" alt=""></a><div class="hover-icon"></div></div>
-			<a href="blog-single-post.html"><h4>How to "Woo" a Recruiter and Land Your Dream Job</h4></a>
-			<div class="meta-tags">
-				<span>September 12, 2015</span>
-				<span><a href="#">0 Comments</a></span>
-			</div>
-			<p>Struggling to find your significant other the perfect Valentine’s Day gift? If I may make a suggestion: woo a recruiter. </p>
-			<a href="blog-single-post.html" class="button">Read More</a>
-		</div>
-
-	</div>
-
-	<div class="col-lg-4 col-md-6 col-sm-12">
-
-		<!-- Post #3 -->
-		<div class="recent-post">
-			<div class="recent-post-img"><a href="blog-single-post.html"><img src="../../../../../public/user/images/recent-post-03.jpg" alt=""></a><div class="hover-icon"></div></div>
-			<a href="blog-single-post.html"><h4>11 Tips to Help You Get New Clients Through Cold Calling</h4></a>
-			<div class="meta-tags">
-				<span>August 27, 2015</span>
-				<span><a href="#">0 Comments</a></span>
-			</div>
-			<p>If your dream employer appears on this list, you’re certainly in good company. But it also means you’re up for some intense competition.</p>
-			<a href="blog-single-post.html" class="button">Read More</a>
-		</div>
 	</div>
 </div>
 </div>
@@ -61,7 +32,7 @@
 
 <script>
 export default {
-
+props:{recents:Array}
 }
 </script>
 

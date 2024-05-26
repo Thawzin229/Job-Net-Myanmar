@@ -238,7 +238,13 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('/blogs/createpage', 'createpage')->middleware('auth');
         Route::get('/blogs/{id}', 'show');
         Route::post('/blogs', 'create');
+
+        Route::post('/blogs/comments','cmt');
     });
+
+    Route::get('testing',function(){
+        return Inertia::render('user/testing');
+    }); 
 
 
 

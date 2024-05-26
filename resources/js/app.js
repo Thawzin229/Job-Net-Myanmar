@@ -1,6 +1,10 @@
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { Link } from "@inertiajs/vue3";
+import PrimeVue from 'primevue/config';
+import Button from "primevue/button"
+import ToastService from 'primevue/toastservice';
+import 'primevue/resources/themes/aura-light-green/theme.css'
 
 createInertiaApp({
     resolve: (name) => {
@@ -9,8 +13,10 @@ createInertiaApp({
     },
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
-            .component("Link", Link)
+            .component("Link", Link,"Button",Button)
             .use(plugin)
-            .mount(el);
+            .use(ToastService)
+            .use(PrimeVue)
+            .mount(el)
     },
 });

@@ -8,9 +8,10 @@
             <Jobs :jobs="jobs"></Jobs>
             <Testimonials :reviews="reviews"></Testimonials>
             <Info></Info>
-            <Post></Post>
+            <Post :recents="recents"></Post>
             <div class="margin-top-15"></div>
             <Footer></Footer>
+            <Dropdown v-model="selectedCity" editable :options="cities" optionLabel="name" placeholder="Select a City" class="w-full md:w-14rem" />
             <div id="backtotop"><a href="#"></a></div>
         </div>
     </div>
@@ -25,6 +26,8 @@ import Jobs from "../components/home-page/Jobs.vue";
 import Testimonials from "../components/home-page/Testimonials.vue";
 import Info from "../components/home-page/Info.vue";
 import Post from "../components/home-page/Post.vue";
+
+
 export default {
     components: {
         Nav,
@@ -42,6 +45,7 @@ export default {
         locations:Array,
         reviews:Array,
         jobs:Object,
+        recents:Array
 
     }
 };

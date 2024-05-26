@@ -43,7 +43,7 @@
 						<span><a href="#">0 Comments</a></span>
 					</div>
 					<p>{{ blog.statement }}</p>
-					<Link class="button" :href="'/user/blogs/'+blog.id">Read More</Link>
+					<a class="button" :href="'/user/blogs/'+blog.id">Read More</a>
 				</div>
 			</div>
 
@@ -96,43 +96,17 @@
 					
 					<!-- Recent Posts -->
 					<ul class="widget-tabs">
-						
-						<!-- Post #1 -->
-						<li>
+						<li v-for="(blog,index) in populars" :key="index">
 							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="" alt="" /></a>
+								<a href="">
+									<img v-if="blog.image" :src="'http://127.0.0.1:8000/storage/blog_images/'+blog.image" alt="" />
+									<img v-if="!blog.image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANUAAACUCAMAAAAzmpx4AAAASFBMVEXf39/i4uLb29vl5eXIyMhxcXHo6Oipqalubm7S0tK1tbV+fn54eHiGhobV1dWWlpbCwsKcnJyMjIxpaWmvr6+ioqJiYmJbW1uzXVlrAAAC9klEQVR4nO3a25KjIBQFUK4qVxGx5///dABNYmaqp5OHKeuk9noC88IuhBxIGAMAAAAAAAAAAAAAAAAAAAAAAACA/4Gn8QVWXj3O98iyTj9a5+Hqcb5OVLxo/yNNKNUwu8a71PN9ywRSqbL2us6UU5zxs/rZqcMjtVRuXoJuqdKJEkw8epFeqiyG0lKJVd9NtW++br01SbqpJq/Xna5vpDS/jt76RTqVXtRum0J7I9WNIPwGTnqUfW8YbE9Ferd4StUfytJTmTvqc9Uf7qmidzfk1tX8Xaq6W9yLJfsxqXhctsOiPicVk3ec2rp6TrUXg3xPdSoDKafyYem2rGsqMS+HmfRu4W/1ktattnhUTJR3i8dO7lzbLfSt4wnP1fNJhLOn/oekYqTPV6c30J5FLsq9Y+imiucrGd92i4+oLb7WB11PjY/zFeFUpxq9lemMcs0+6yCGsX0/cXlW94hTR9K6Y5KbdkVl7az6p9Hrjc7dbd0j9htO929eT5FfPdjXyaRfuI6eVp0IhaqzJZL9WRKkQlXyFVcPEgAAAOi4XVTU1vnR301KxHEyZCya/Uk9QSq11+inJinchpxDmOtpuCyiP4mzCyHY1jSLC643aeHFJaNS9oyPuaXiItQnpqyF8+hCbW4ruVi8hLp2pNJJ7qmGcY1tMY3ODNmbtqxUvHqU7zpSGa1uc+X6FQWP2prV9tsKiuvKqbpbLJnvqXj0+9/LRCi2nevbtQy5WNzqnLP3RrI9lfFpT5XHMrX/2ZVi1dWjfFedq7pbqCWIP+cq17kSvP170G1Xj/Jdx7qKugz7umJu6+tKeKvWNm2czcvFg3zbkUr4saWqO96wTa2gkMWrweX+O48nOFd9t9imugeG1orCZRVjWkfGld5MrN/E9FJZXwuJkG2tLXpr5Cb74FypRZS0tbJwoyWXisV25WxarddbytQlpVIy/VuKR5VULRWvHuT7TjX7+XfGx4cUv4YBAAAAAAAAAAAAAAAAAAAAAADg4/wGhuM3+PTlSm8AAAAASUVORK5CYII=" alt="" />
+								</a>
 							</div>
 							
 							<div class="widget-text">
-								<h5><a href="blog-single-post.html">How to "Woo" a Recruiter and Land Your Dream Job</a></h5>
-								<span>September 12, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						
-						<!-- Post #2 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">Hey Job Seeker, It’s Time To Get Up And Get Hired</a></h5>
-								<span>October 10, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-
-						</li>
-						
-						<!-- Post #3 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">11 Tips to Help You Get New Clients Through Cold Calling</a></h5>
-								<span>August 27, 2015</span>
+								<h5><a :href="'/user/blogs/'+blog.id">{{ blog.title }}</a></h5>
+								<span>{{ blog.date }}</span>
 							</div>
 							<div class="clearfix"></div>
 						</li>
@@ -144,43 +118,17 @@
 				
 					<!-- Featured Posts -->
 					<ul class="widget-tabs">
-
-						<!-- Post #1 -->
-						<li>
+						<li v-for="(blog,index) in recents.slice().reverse()" :key="index">
 							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="" alt="" /></a>
+								<a href="">
+									<img v-if="blog.image" :src="'http://127.0.0.1:8000/storage/blog_images/'+blog.image" alt="" />
+									<img v-if="!blog.image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANUAAACUCAMAAAAzmpx4AAAASFBMVEXf39/i4uLb29vl5eXIyMhxcXHo6Oipqalubm7S0tK1tbV+fn54eHiGhobV1dWWlpbCwsKcnJyMjIxpaWmvr6+ioqJiYmJbW1uzXVlrAAAC9klEQVR4nO3a25KjIBQFUK4qVxGx5///dABNYmaqp5OHKeuk9noC88IuhBxIGAMAAAAAAAAAAAAAAAAAAAAAAACA/4Gn8QVWXj3O98iyTj9a5+Hqcb5OVLxo/yNNKNUwu8a71PN9ywRSqbL2us6UU5zxs/rZqcMjtVRuXoJuqdKJEkw8epFeqiyG0lKJVd9NtW++br01SbqpJq/Xna5vpDS/jt76RTqVXtRum0J7I9WNIPwGTnqUfW8YbE9Ferd4StUfytJTmTvqc9Uf7qmidzfk1tX8Xaq6W9yLJfsxqXhctsOiPicVk3ec2rp6TrUXg3xPdSoDKafyYem2rGsqMS+HmfRu4W/1ktattnhUTJR3i8dO7lzbLfSt4wnP1fNJhLOn/oekYqTPV6c30J5FLsq9Y+imiucrGd92i4+oLb7WB11PjY/zFeFUpxq9lemMcs0+6yCGsX0/cXlW94hTR9K6Y5KbdkVl7az6p9Hrjc7dbd0j9htO929eT5FfPdjXyaRfuI6eVp0IhaqzJZL9WRKkQlXyFVcPEgAAAOi4XVTU1vnR301KxHEyZCya/Uk9QSq11+inJinchpxDmOtpuCyiP4mzCyHY1jSLC643aeHFJaNS9oyPuaXiItQnpqyF8+hCbW4ruVi8hLp2pNJJ7qmGcY1tMY3ODNmbtqxUvHqU7zpSGa1uc+X6FQWP2prV9tsKiuvKqbpbLJnvqXj0+9/LRCi2nevbtQy5WNzqnLP3RrI9lfFpT5XHMrX/2ZVi1dWjfFedq7pbqCWIP+cq17kSvP170G1Xj/Jdx7qKugz7umJu6+tKeKvWNm2czcvFg3zbkUr4saWqO96wTa2gkMWrweX+O48nOFd9t9imugeG1orCZRVjWkfGld5MrN/E9FJZXwuJkG2tLXpr5Cb74FypRZS0tbJwoyWXisV25WxarddbytQlpVIy/VuKR5VULRWvHuT7TjX7+XfGx4cUv4YBAAAAAAAAAAAAAAAAAAAAAADg4/wGhuM3+PTlSm8AAAAASUVORK5CYII=" alt="" />
+								</a>
 							</div>
 							
 							<div class="widget-text">
-								<h5><a href="blog-single-post.html">Hey Job Seeker, It’s Time To Get Up And Get Hired</a></h5>
-								<span>October 10, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-
-						</li>
-						
-						<!-- Post #2 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">How to "Woo" a Recruiter and Land Your Dream Job</a></h5>
-								<span>September 12, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						
-						<!-- Post #3 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">11 Tips to Help You Get New Clients Through Cold Calling</a></h5>
-								<span>August 27, 2015</span>
+								<h5><a :href="'/user/blogs/'+blog.id">{{ blog.title }}</a></h5>
+								<span>{{ blog.date }}</span>
 							</div>
 							<div class="clearfix"></div>
 						</li>
@@ -195,11 +143,14 @@
 						<!-- Post #1 -->
 						<li v-for="(blog,index) in recents" :key="index">
 							<div class="widget-thumb">
-								<a href=""><img :src="'http://127.0.0.1:8000/storage/blog_images/'+blog.image" alt="" /></a>
+								<a href="">
+									<img v-if="blog.image" :src="'http://127.0.0.1:8000/storage/blog_images/'+blog.image" alt="" />
+									<img v-if="!blog.image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANUAAACUCAMAAAAzmpx4AAAASFBMVEXf39/i4uLb29vl5eXIyMhxcXHo6Oipqalubm7S0tK1tbV+fn54eHiGhobV1dWWlpbCwsKcnJyMjIxpaWmvr6+ioqJiYmJbW1uzXVlrAAAC9klEQVR4nO3a25KjIBQFUK4qVxGx5///dABNYmaqp5OHKeuk9noC88IuhBxIGAMAAAAAAAAAAAAAAAAAAAAAAACA/4Gn8QVWXj3O98iyTj9a5+Hqcb5OVLxo/yNNKNUwu8a71PN9ywRSqbL2us6UU5zxs/rZqcMjtVRuXoJuqdKJEkw8epFeqiyG0lKJVd9NtW++br01SbqpJq/Xna5vpDS/jt76RTqVXtRum0J7I9WNIPwGTnqUfW8YbE9Ferd4StUfytJTmTvqc9Uf7qmidzfk1tX8Xaq6W9yLJfsxqXhctsOiPicVk3ec2rp6TrUXg3xPdSoDKafyYem2rGsqMS+HmfRu4W/1ktattnhUTJR3i8dO7lzbLfSt4wnP1fNJhLOn/oekYqTPV6c30J5FLsq9Y+imiucrGd92i4+oLb7WB11PjY/zFeFUpxq9lemMcs0+6yCGsX0/cXlW94hTR9K6Y5KbdkVl7az6p9Hrjc7dbd0j9htO929eT5FfPdjXyaRfuI6eVp0IhaqzJZL9WRKkQlXyFVcPEgAAAOi4XVTU1vnR301KxHEyZCya/Uk9QSq11+inJinchpxDmOtpuCyiP4mzCyHY1jSLC643aeHFJaNS9oyPuaXiItQnpqyF8+hCbW4ruVi8hLp2pNJJ7qmGcY1tMY3ODNmbtqxUvHqU7zpSGa1uc+X6FQWP2prV9tsKiuvKqbpbLJnvqXj0+9/LRCi2nevbtQy5WNzqnLP3RrI9lfFpT5XHMrX/2ZVi1dWjfFedq7pbqCWIP+cq17kSvP170G1Xj/Jdx7qKugz7umJu6+tKeKvWNm2czcvFg3zbkUr4saWqO96wTa2gkMWrweX+O48nOFd9t9imugeG1orCZRVjWkfGld5MrN/E9FJZXwuJkG2tLXpr5Cb74FypRZS0tbJwoyWXisV25WxarddbytQlpVIy/VuKR5VULRWvHuT7TjX7+XfGx4cUv4YBAAAAAAAAAAAAAAAAAAAAAADg4/wGhuM3+PTlSm8AAAAASUVORK5CYII=" alt="" />
+								</a>
 							</div>
 							
 							<div class="widget-text">
-								<h5><a href="blog-single-post.html">{{ blog.title }}</a></h5>
+								<h5><a :href="'/user/blogs/'+blog.id">{{ blog.title }}</a></h5>
 								<span>{{ blog.date }}</span>
 							</div>
 							<div class="clearfix"></div>
@@ -236,7 +187,7 @@
 
 <script>
 export default {
-  props:{blogs:Object,recents:Array}
+  props:{blogs:Object,recents:Array,populars:Array}
 }
 </script>
 

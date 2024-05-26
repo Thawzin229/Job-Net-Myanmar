@@ -51,7 +51,7 @@
 					</ul>
 				</li>
 
-				<li><Link href="/user/blogs/">Blog</Link></li>
+				<li><a href="/user/blogs/">Blog</a></li>
 
 	
 

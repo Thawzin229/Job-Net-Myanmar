@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Jobs;
-use App\Models\Location;
-use App\Models\Review;
 use App\Models\User;
-use App\Models\UserProfile;
 use Inertia\Inertia;
+use App\Models\Review;
 use App\Models\Category;
+use App\Models\Location;
 use App\Models\Application;
+use App\Models\UserProfile;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class UserHomeController extends Controller
@@ -38,11 +40,22 @@ class UserHomeController extends Controller
 
             $jobs[$key]['jobdetails']['is_applied']  = in_array($job_id,$user_applications) ? true:false;
         }
+
+        $recent_blogs = Blog::select('blogs.*',DB::raw("DATE_FORMAT(blogs.created_at,'%M %e, %Y') as date"))->latest()
+        ->withCount('comments')->take(3)->get()->toArray();
+
+        foreach ($recent_blogs as $key => $blog) {
+            $description = Str::limit($blog['body'],30);
+            $recent_blogs[$key]['body'] = $description;
+        }
+
+        
         return Inertia::render('user/home/index',[
             'categories' => $category,
             'jobs' => $jobs,
             'locations' => $locations,
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'recents' => $recent_blogs
         ]);
 }
 }
